@@ -1,11 +1,11 @@
-DOI: 10.5281/zenodo.6582985
+DOI: 10.5281/zenodo.10183982
 SOFTWARE: gromacs
 TRJ:
-- - popchydr44_0-500ns.xtc
+- - popchysr44_0-500ns_step10ps.xtc
 TPR:
 - - analyze.tpr
 PREEQTIME: 0
-TIMELEFTOUT: 0
+TIMELEFTOUT: 100
 COMPOSITION:
   POPC:
     NAME: POPC
@@ -17,14 +17,14 @@ COMPOSITION:
     NAME: SPC
     MAPPING: mappingwaterlipid14.yaml
     COUNT: 8859
-DIR_WRK: /media/osollila/Data/tmp/DATABANK/
+DIR_WRK: set-via-console
 PUBLICATION: null
-AUTHORS_CONTACT: "Milla Lindstr\xF6m"
-SYSTEM: 200POPC_8859SOL_300K_run_with_demond_convert_gromacs
+AUTHORS_CONTACT: "Milla Kurki (Lindstr\xF6m)"
+SYSTEM: 200POPC_8859SOL_300K
 SOFTWARE_VERSION: null
 FF: OPLS3e
-FF_SOURCE: null
-FF_DATE: null
+FF_SOURCE: Shrodinger
+FF_DATE: 12/2022
 CPT:
 - - desmond_md_popc200lip500ns.cpt
 LOG: null
@@ -33,16 +33,8 @@ TOP:
 GRO:
 - - desmond_md_popc200lip500ns-in_converted.gro
 TRAJECTORY_SIZE: 9968773016
-TRJLENGTH: 4998.7000744864345
+TRJLENGTH: 499870.0
 TEMPERATURE: 300.0
 NUMBER_OF_ATOMS: 53377
-DATEOFRUNNING: 29/05/2022
+DATEOFRUNNING: 08/04/2024
 TYPEOFSYSTEM: lipid bilayer
-EXPERIMENT:
-  ORDERPARAMETER:
-    POPC:
-      10.1039/c2cp42738a: 10.1039/c2cp42738a/1
-  FORMFACTOR: unpublished/NMRlipidsIII/1
-WARNINGS:
-  TIMESTEP: incorrect
-ID: 1
