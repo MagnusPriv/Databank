@@ -16,8 +16,8 @@ import yaml
 
 
 databankPath =  '../../'
-sys.path.insert(1, databankPath + '/Scripts/BuildDatabank/')
-from databankLibrary import * 
+sys.path.append('..')
+from DatabankLib.databankLibrary import * 
 systems = initialize_databank(databankPath)
 
 
