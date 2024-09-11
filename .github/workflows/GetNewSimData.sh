@@ -4,7 +4,7 @@
 TARGET_DIR="Scripts/BuildDatabank/info_files"
 
 #The branch we are comparing to. For final build this will be the branch the user opens merge requests to:
-TARGET_BRANCH = "docker_test"
+TARGET_BRANCH="docker_test"
 
 
 # Name of file we're going to store new filenames in:
