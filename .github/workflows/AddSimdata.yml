@@ -1,0 +1,36 @@
+name: Add new data
+
+on:
+  pull_request:
+    branches:
+      - docker_test
+    paths:
+      - 'Scripts/BuildDatabank/info_files/**'
+
+  workflow_dispatch:
+
+  push:
+    branches:
+      - docker_test
+
+jobs:
+  build:
+    runs-on: nrec-large  
+
+    steps:
+
+    - name: Get current branch name
+      id: vars
+      run: |
+        branchName=${GITHUB_REF#refs/heads/}
+        echo "BRANCH_NAME=$branchName" >> $GITHUB_ENV
+
+    - name: Pull Docker image
+      run: |
+          sudo docker pull nmrlipids/project:addsim1.3
+  
+    - name: Run the Docker container with environment variables
+      run: |
+          sudo docker run --env REPO_URL=${{ github.event.repository.clone_url }} \
+                          --env BRANCH_NAME=${{ env.BRANCH_NAME }} \
+                          nmrlipids/project:addsim1.3
