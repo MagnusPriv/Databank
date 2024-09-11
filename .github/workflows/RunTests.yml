@@ -1,0 +1,20 @@
+name: Run tests
+on:
+  push:
+    branches:
+      - docker_test
+
+jobs:
+    build-and-test:
+        runs-on: nrec-large 
+        
+        steps:
+          - name: checkout code
+            uses: actions/checkout@v2 
+            
+          - name: pull docker image
+            run: sudo docker pull lamadrama/lamafiles:1.9
+          
+          - name: Run Docker container with volume
+            run: |
+              sudo docker run --rm -v "${{ github.workspace }}:/app/Databank" lamadrama/lamafiles:1.9
