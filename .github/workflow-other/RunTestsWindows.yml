@@ -1,0 +1,22 @@
+name: Run tests
+on:
+  push:
+    branches:
+      - docker_test
+
+jobs:
+    build-and-test:
+        runs-on: self-windows 
+        
+        steps:
+          - name: checkout code
+            uses: actions/checkout@v2 
+            
+          - name: pull docker image
+            run:  docker pull lamadrama/lamafiles:1.9
+            
+          - name: Run Docker container with volume
+            shell: powershell 
+            run: |
+                $workspacePath = "${{ github.workspace }}".Replace("\", "/")
+                docker run --rm -v "${workspacePath}:/app/Databank" lamadrama/lamafiles:1.9 

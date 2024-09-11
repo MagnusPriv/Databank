@@ -1,0 +1,44 @@
+name: Add new data 
+
+on:
+  pull_request:
+    branches:
+      - docker_test
+    paths:
+    - 'Scripts/BuildDatabank/info_files/**'
+  
+  workflow_dispatch:
+
+  push:
+    branches:
+      - merge_docker_test
+
+jobs:
+  build:
+    runs-on: self-windows
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Get current branch name
+      id: vars
+      run: |
+        $branchName = $env:GITHUB_REF -replace 'refs/heads/', ''
+        echo "BRANCH_NAME=$branchName" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
+      shell: powershell
+
+    - name: Debug branch name
+      run: echo "BRANCH_NAME=$env:BRANCH_NAME"
+      shell: powershell
+    
+    - name: Run the Docker container with environment variables
+      run: |
+        docker run --env REPO_URL=${{ github.event.repository.clone_url }} `
+                   --env BRANCH_NAME=${{ env.BRANCH_NAME }} `
+                   addsim:1.2
+      shell: powershell
+    
+    
+
+#t
