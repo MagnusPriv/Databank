@@ -11,7 +11,7 @@ on:
 
   push:
     branches:
-      - docker_test
+      - new_pipeline
 
 jobs:
   build:
