@@ -28,7 +28,7 @@ if [ -n "$NEW_FILES" ]; then
   echo "$NEW_FILES"
   echo "$NEW_FILES" > "$OUTPUT_FILE"  
   
-  # Run AddData.py for each new file listed in the output file:
+  # Run AddData.py for each new file listed in the output file::
   while IFS= read -r file; do
     echo "Running AddData.py for $file"
     python3 "$ADD_DATA_SCRIPT" -f "$file"  
