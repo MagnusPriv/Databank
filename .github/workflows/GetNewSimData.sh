@@ -20,7 +20,7 @@ ADD_DATA_SCRIPT="Scripts/BuildDatabank/AddData.py"
 git fetch origin
 
 #Finding new added files in this branch relative to the other branch meantioned here:
-NEW_FILES=$(git diff --name-status origin/$BRANCH_NAME origin/$TARGET_BRANCH  | grep -E "^A|^R100"| grep "$TARGET_DIR" | awk '{print $2}')
+NEW_FILES=$(git diff --name-status origin/$BRANCH_NAME origin/$TARGET_BRANCH | grep "$TARGET_DIR" | awk '{print $2}')
 
 # If new files is not Null:
 if [ -n "$NEW_FILES" ]; then
