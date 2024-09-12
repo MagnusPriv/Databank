@@ -18,6 +18,7 @@ ADD_DATA_SCRIPT="Scripts/BuildDatabank/AddData.py"
 
 
 git fetch origin
+git checkout $BRANCH_NAME
 
 #Finding new added files in this branch relative to the other branch meantioned here:
 NEW_FILES=$(git diff --name-status origin/$BRANCH_NAME origin/$TARGET_BRANCH | grep "$TARGET_DIR" | awk '{print $2}')
@@ -37,5 +38,6 @@ else
   echo "No new files detected in $TARGET_DIR."
 fi
 
-
+pwd
+git remote -v
 git status 

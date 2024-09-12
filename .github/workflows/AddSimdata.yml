@@ -31,6 +31,6 @@ jobs:
   
     - name: Run the Docker container with environment variables
       run: |
-          sudo docker run --env REPO_URL=${{ github.event.repository.clone_url }} \
+          sudo docker run --rm --env REPO_URL=${{ github.event.repository.clone_url }} \
                           --env BRANCH_NAME=${{ env.BRANCH_NAME }} \
                           nmrlipids/project:addsim1.3
