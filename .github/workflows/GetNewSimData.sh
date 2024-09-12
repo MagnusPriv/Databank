@@ -40,9 +40,5 @@ else
   echo "No new files detected in $TARGET_DIR."
 fi
 
-cd /Data/Simulations/35d
+cd /Data/Simulations/35d\d6b\35dd6bcb5bf03400b81c070292e36025c48dc1a6\3d0ca721c24d7f22d09178f10f1dd89a333dfe07
 ls 
-pwd
-git remote -v
-git add .
-git status 
