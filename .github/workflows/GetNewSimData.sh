@@ -40,6 +40,8 @@ else
   echo "No new files detected in $TARGET_DIR."
 fi
 
-cd Data/Simulations/35d
+cd /Data/Simulations/35d
 
 ls -R
+
+pwd 
