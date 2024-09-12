@@ -23,7 +23,7 @@ pwd
 
 #Finding new added files in this branch relative to the other branch meantioned here:
 NEW_FILES=$(git diff --name-status origin/$BRANCH_NAME origin/$TARGET_BRANCH | grep "$TARGET_DIR" | awk '{print $2}')
-
+cd Scripts/BuildDatabank
 # If new files is not Null:
 if [ -n "$NEW_FILES" ]; then
   echo "$NEW_FILES"
@@ -31,8 +31,9 @@ if [ -n "$NEW_FILES" ]; then
   
   # Run AddData.py for each new file listed in the output file::
   while IFS= read -r file; do
+    
     echo "Running AddData.py for $file"
-    python3 "$ADD_DATA_SCRIPT" -f "$file"
+    python3 "AddData.py" -f "$file"
     break   
   done < "$OUTPUT_FILE"
 
@@ -40,8 +41,4 @@ else
   echo "No new files detected in $TARGET_DIR."
 fi
 
-cd /Data/Simulations/35d
-
-ls -R
-
-pwd 
+git status 
