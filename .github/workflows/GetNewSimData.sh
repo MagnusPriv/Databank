@@ -7,7 +7,7 @@ TARGET_DIR="Scripts/BuildDatabank/info_files"
 TARGET_BRANCH="docker_test"
 
 
-# Name of file we're going to store new filenames in:
+# Name of file we're going to store new filenames in: 
 OUTPUT_FILE="new_files.txt"
 
 # Path to the AddData:
