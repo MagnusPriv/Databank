@@ -18,7 +18,8 @@ ADD_DATA_SCRIPT="Scripts/BuildDatabank/AddData.py"
 
 
 git fetch origin
-git checkout $BRANCH_NAME
+pwd
+
 
 #Finding new added files in this branch relative to the other branch meantioned here:
 NEW_FILES=$(git diff --name-status origin/$BRANCH_NAME origin/$TARGET_BRANCH | grep "$TARGET_DIR" | awk '{print $2}')
@@ -31,7 +32,8 @@ if [ -n "$NEW_FILES" ]; then
   # Run AddData.py for each new file listed in the output file::
   while IFS= read -r file; do
     echo "Running AddData.py for $file"
-    python3 "$ADD_DATA_SCRIPT" -f "$file"  
+    python3 "$ADD_DATA_SCRIPT" -f "$file"
+    break   
   done < "$OUTPUT_FILE"
 
 else
