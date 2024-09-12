@@ -40,6 +40,8 @@ else
   echo "No new files detected in $TARGET_DIR."
 fi
 
+cd /Data/Simulations/35d
+ls 
 pwd
 git remote -v
 git add .
