@@ -42,4 +42,5 @@ fi
 
 pwd
 git remote -v
+git add .
 git status 
