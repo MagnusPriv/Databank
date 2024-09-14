@@ -1,17 +1,13 @@
-name: Add new data
-#
+name: Add new data and create PR
+
 on:
-  pull_request:
+  pull_request_target:
     branches:
-      - docker_test
+      - fork_test
     paths:
       - 'Scripts/BuildDatabank/info_files/**'
 
   workflow_dispatch:
-
-  push:
-    branches:
-      - new_pipeline_v2
 
 jobs:
   build:
@@ -19,20 +15,41 @@ jobs:
 
     steps:
 
-    - name: Get current branch name
-      id: vars
-      run: |
-        branchName=${GITHUB_REF#refs/heads/}
-        echo "BRANCH_NAME=$branchName" >> $GITHUB_ENV
+      - name: Get current branch name
+        id: vars
+        run: |
+          branchName=${GITHUB_REF#refs/heads/}
+          echo "BRANCH_NAME=$branchName" >> $GITHUB_ENV
 
-    - name: Pull Docker image
-      run: |
+      # Step 2: Create a new branch with the PR data
+      - name: Create new branch
+        uses: peterjgrainger/action-create-branch@v2.2.0
+        with:
+          branch: 'pr-${{ github.event.pull_request.number }}-data'
+          sha: ${{ github.event.pull_request.head.sha }}  # Use the PR's commit SHA
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      # Step 3: Pull the Docker image
+      - name: Pull Docker image
+        run: |
           sudo docker pull nmrlipids/project:addsim1.3
 
-    - name: Run the Docker container with environment variables
-      run: |
-          sudo docker run --rm \
-          --env REPO_URL=${{ github.event.repository.clone_url }} \
-          --env BRANCH_NAME=${{ env.BRANCH_NAME }} \
-          --env GH_TOKEN=${{ secrets.GH_TOKEN }} \
-          nmrlipids/project:addsim1.3
+      - name: Run the Docker container with environment variables
+        run: |
+            sudo docker run --rm \
+            --env REPO_URL=${{ github.event.repository.clone_url }} \
+            --env BRANCH_NAME=${{ env.BRANCH_NAME }} \
+            --env NEW_BRANCH = 'pr-${{ github.event.pull_request.number }}-data'\
+            --env GH_TOKEN=${{ secrets.GH_TOKEN }} \
+            nmrlipids/project:addsim1.3
+
+
+      - name: Create pull request
+        uses: peter-evans/create-pull-request@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          branch: pr-${{ github.event.pull_request.number }}-data  
+          base: new_pipeline_v2  
+          title: 'Pull request for updated data'
+          body: 'This PR contains updates to the data generated from the incoming PR.'

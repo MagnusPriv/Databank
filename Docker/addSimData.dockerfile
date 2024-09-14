@@ -49,7 +49,7 @@ CMD /bin/bash -c "source /usr/local/gromacs/bin/GMXRC && \
     cd Databank && \
     git fetch origin && git branch -r && \
     git fetch origin main_mock && \
-    git checkout $BRANCH_NAME && \
+    git checkout $NEW_BRANCH && \
     chmod +x /app/Databank/.github/workflows/GetNewSimData.sh && \
     /app/Databank/.github/workflows/GetNewSimData.sh"
 

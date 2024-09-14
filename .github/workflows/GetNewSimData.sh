@@ -33,7 +33,7 @@ git fetch origin $BRANCH_NAME
 git pull origin $BRANCH_NAME
 
 #Finding new added files in this branch relative to the other branch meantioned here:
-NEW_FILES=$(git diff --name-status origin/$BRANCH_NAME origin/$TARGET_BRANCH | grep "info_files" | awk '{print $2}')
+NEW_FILES=$(git diff --name-status $NEW_BRANCH origin/$BRANCH_NAME| grep "info_files" | awk '{print $2}')
 
 
 # If new files is not Null:
