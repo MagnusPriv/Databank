@@ -33,7 +33,7 @@ jobs:
       # Step 3: Pull the Docker image
       - name: Pull Docker image
         run: |
-          sudo docker pull nmrlipids/project:addsim1.3
+          sudo docker pull nmrlipids/project:addsim_fork1.0
 
       - name: Run the Docker container with environment variables
         run: |
@@ -50,6 +50,6 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           branch: pr-${{ github.event.pull_request.number }}-data  
-          base: new_pipeline_v2  
+          base: fork-test  
           title: 'Pull request for updated data'
           body: 'This PR contains updates to the data generated from the incoming PR.'
