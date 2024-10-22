@@ -56,6 +56,7 @@ cd "$BUILDDATABANKPATH"
 # Push changes to the repository:
 cd "$DATABANK_ABS_PATH"
 git status
+git pull
 git add .
-git commit -m "Automated push by NREC" || { echo "git commit failed"; exit 1; }
+git commit -m "Files recomputed" || { echo "git commit failed"; exit 1; }
 git push https://x-access-token:$GITHUB_TOKEN@github.com/MagnusSletten/Databank.git || { echo "git push failed"; exit 1; }
