@@ -15,6 +15,3 @@ git checkout ${BRANCH_NAME} || { echo "Failed to fetch or checkout the branch"; 
 # Push the new branch to the main repository
 git push https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY} ${BRANCH_NAME}:${BRANCH_NAME} || { echo "Failed to push the branch"; exit 1; }
 
-# Create the pull request using GitHub CLI
-gh pr create --head ${BRANCH_NAME} --base ${TARGET_BRANCH_NAME} \
-  --title "${GITHUB_ACTOR}'s New Data" --body "This PR brings in new data from ${GITHUB_ACTOR}" || { echo "Failed to create pull request"; exit 1; }

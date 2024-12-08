@@ -4,30 +4,34 @@ on:
   workflow_dispatch:
     inputs:
       base_branch:
-        description: "The branch which has the files that are going to be recomputed."
+        description: "Branch with files to recompute:"
         required: true
         default: "main"
         type: string
       working_branch_name:
-        description: "The new branch where new files are added. A pull request to base_branch is then made from working_branch_name"
+        description: "The new branch where new files are added:"
         required: true
-        default: "default"
         type: string 
       start_index:
-        description: "Starting index" 
+        description: "Starting index:" 
         required: true
         type: number  
       end_index:
-        description: "End index"
+        description: "End index:"
         required: true
         type: number 
       number_of_runners: 
-        description: "Number of individual runners being used"
+        description: "Number of individual runners being used:"
         required: true
         type: number 
 
 jobs:
+  DockerCleanup:
+    uses: MagnusSletten/Databank/.github/workflows/DockerCleanup.yml@dev_pipeline_rebase_clean
+    with:
+      delete_images: false
   Make_New_branch:
+    needs: DockerCleanup
     runs-on: nrec-large
     steps:
       - name: Pull Docker image
@@ -75,7 +79,6 @@ jobs:
       - name: Pull Docker image
         run: |
             sudo docker pull nmrlipids/core
-      
 
       - name: Run Docker to Calculate and Dispatch Child Workflows
         run: |

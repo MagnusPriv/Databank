@@ -4,18 +4,27 @@ on:
   workflow_dispatch:
     inputs:
       docker_image_name:
-        description: "The Docker image name you want to rebuild and push to DockerHub (e.g., core)"
+        description: "The Docker image name you want to rebuild (e.g., core):"
         required: true
       gromacs_version:
-        description: "The version of gromacs used"
+        description: "The version of gromacs used:"
         required: false
         default: "2024.4"  
       branch_name:
-        description: "The branch name to use for cloning the repository"
+        description: "The branch name to use for cloning the repository:"
         required: false
-        default: "main"  
+        default: "main" 
+      run_tests:
+        type: boolean 
+        description: "If tests should be run without fails before pushing image"
+        default: true
 jobs:
-  build:
+  DockerCleanup:
+    uses: MagnusSletten/Databank/.github/workflows/DockerCleanup.yml@dev_pipeline_rebase_clean
+    with:
+      delete_images: false
+  Build:
+    needs: DockerCleanup
     runs-on: nrec-large
     steps:      
       - name: Check out the repository
@@ -33,7 +42,15 @@ jobs:
             -t nmrlipids/${{ inputs.docker_image_name }}:latest \
             --build-arg GROMACS_VERSION="${{ inputs.gromacs_version }}" \
             -f Docker/${{ inputs.docker_image_name }} .
-
+      
+      - name: Run Tests
+        if: ${{inputs.run_tests}}
+        run: |
+          sudo docker run --rm \
+            -e BRANCH_NAME="${{ inputs.branch_name }}" \
+            nmrlipids/${{ inputs.docker_image_name }} \
+            bash -c "git pull && Scripts/WorkflowScripts/DockerRunInstructions/Runtests.sh"
+     
       - name: Push Docker Image
         run: |
           sudo docker push nmrlipids/${{ inputs.docker_image_name }}:latest
@@ -42,6 +59,7 @@ jobs:
         if: always()
         run: |
           sudo docker logout
+  
 
       
 

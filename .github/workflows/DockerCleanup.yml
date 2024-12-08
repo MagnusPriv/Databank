@@ -1,0 +1,29 @@
+#Removes resources docker has previously used. Failed jobs could previously leave containers running which is why this workflow was made. 
+#Gives option to delete docker images, but by default this is avoided. 
+name: Docker Cleanup
+
+on:
+  workflow_call:
+    inputs:
+      delete_images:
+        type: boolean 
+        description: "If true it will delete all images:"
+        required: false
+        default: false
+
+jobs:
+  Clean_Docker:
+    runs-on: nrec-large
+    steps:
+      - name: Stop and remove all containers
+        run: sudo docker container prune -f
+
+      - name: Remove all unused build cache
+        run: sudo docker builder prune -f
+
+      - name: Remove unused images
+        run: sudo docker image prune -f
+
+      - name: Remove all images (optional)
+        if: ${{ inputs.delete_images == 'true' }}
+        run: sudo docker image prune -f

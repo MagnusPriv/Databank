@@ -7,20 +7,20 @@ on:
   workflow_call:
     inputs:
       working_branch_name:
-        description: "The new branch where new files are added"
+        description: "Name of the new branch:"
         required: true
         type: string
       target_branch_name:
-        description: "The branch it will create a PR towards"
+        description: "The branch it will create a PR towards:"
         required: true
         type: string
       pr_number:
-        description: "The pull request number"
+        description: "The pull request number for incoming fork"
         required: true
         type: string
 
 jobs:
-  Run_Add_Branch_and_Create_PR:
+  Add_Branch_And_Pull_Request:
     runs-on: nrec-large
     steps:
       - name: Clean up workspace
@@ -30,9 +30,9 @@ jobs:
         
       - name: Pull Docker image
         run: |
-            sudo docker pull nmrlipids/utils
+            sudo docker pull nmrlipids/core
   
-      - name: Run add_branch_and_create_pr to create the branch and open the pull request
+      - name: Add branch and create pull request
         run: |
             sudo docker run --rm \
               -e GITHUB_TOKEN="${{ secrets.GITHUB_TOKEN }}" \
@@ -41,6 +41,5 @@ jobs:
               -e PR_NUMBER="${{ inputs.pr_number }}" \
               -e TARGET_BRANCH_NAME="${{ inputs.target_branch_name }}" \
               -e GITHUB_ACTOR="${{ github.actor }}" \
-              nmrlipids/utils \
-              /bin/bash -c "git pull && Scripts/WorkflowScripts/DockerRunInstructions/NewBranchPullRequest.sh"
-           
+              nmrlipids/core /bin/bash -c "git pull && git checkout ${{ inputs.target_branch_name }} && \
+              Scripts/WorkflowScripts/CreateBranchFromFork.sh && Scripts/WorkflowScripts/CreatePullRequest.sh"

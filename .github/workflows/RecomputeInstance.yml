@@ -4,21 +4,26 @@ on:
   workflow_dispatch:
     inputs:
       working_branch_name:
-        description: "The new branch where new files are added"
+        description: "The new branch where new files are added:"
         required: true
-        default: "default"
         type: string  
       start_index:
-        description: "Starting index"
+        description: "Starting index:"
         required: true
         type: number  
       end_index:
-        description: "End index"
+        description: "End index:"
         required: true
         type: number  
 
 jobs:
+  DockerCleanup:
+    uses: MagnusSletten/Databank/.github/workflows/DockerCleanup.yml@dev_pipeline_rebase_clean
+    with:
+      delete_images: false
+
   AddSimData:
+    needs: DockerCleanup
     runs-on: nrec-large
     steps:
       - name: Pull Docker images

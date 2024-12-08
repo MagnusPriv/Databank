@@ -28,7 +28,7 @@ The automated steps for experiment data is described [here](https://nmrlipids.gi
 
 ## Recomputing Data
 
-You can initiate recomputes of simulation data using the workflow file: `RecomputeDatabank.yml`. The following options allow you to specify which folders to recompute and control the distribution of the workload. It will work with indexes of the folders as given by the method `initialize_databank()` after the folders retrieved has gone through sorting based on folder path. This makes the indexing consistent. For each specified index it will then recompute the JSON files and push to the branch specified as the workflow input: `working_branch_name`
+You can initiate recomputes of simulation data using the workflow file: `RecomputeDatabank.yml`. The following options allow you to specify which folders to recompute and control the distribution of the workload. It will work with indexes of the folders as given by the method `sorted_databank()` which sorts the Databank based on the system IDs. This makes the indexing consistent. For each specified index it will then recompute the JSON files and push to the branch specified as the workflow input: `working_branch_name`
 
 - **Specify Folder index Range**: Use the starting and ending index to define which folders to recompute.
   - **All Folders**: Set the starting index to `0` and the ending index to `-1` (negative one) to recompute all folders.
