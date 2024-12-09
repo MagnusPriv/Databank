@@ -22,7 +22,7 @@ jobs:
     with:
       delete_images: false
 
-  AddSimData:
+  RecomputeData:
     needs: DockerCleanup
     runs-on: nrec-large
     steps:
