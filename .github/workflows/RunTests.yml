@@ -1,0 +1,19 @@
+name: Run tests
+
+on:
+  push:
+    paths:
+      - 'Scripts/**/*.py'
+      - 'Scripts/**/*.sh'
+      - 'Scripts/**/*.ipynb'
+
+jobs:
+  testing:
+    runs-on: nrec-large
+    steps:
+      - name: Run tests in Docker
+        run: |
+          sudo docker run --rm \
+          -e BRANCH_NAME="${{ github.ref_name }}" \
+          nmrlipids/core \
+          bash -c "git pull && Scripts/WorkflowScripts/DockerRunInstructions/Runtests.sh"

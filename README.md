@@ -50,3 +50,5 @@ If you want to run tests:
 ```
 
 If you want to develop, please install `flake8` for syntax check!
+
+Temporary addition of the link to the [Website](https://d551-2001-464a-61a0-0-c1ea-aaa-71c7-f3e3.ngrok-free.app/) 

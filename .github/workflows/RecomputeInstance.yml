@@ -25,6 +25,7 @@ jobs:
   RecomputeData:
     needs: DockerCleanup
     runs-on: nrec-large
+    timeout-minutes: 7200 
     steps:
       - name: Pull Docker images
         run: |

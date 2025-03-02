@@ -17,9 +17,8 @@ The new data pipeline relies on this workflow file to handle information from an
 The automated steps for sim data is described [here](https://nmrlipids.github.io/addingData.html).
 The automated steps for experiment data is described [here](https://nmrlipids.github.io/addingExpData.html)
    * Experiment addition steps automated: 3,4,5
-   * Simulation addition steps automated: 4,5,6
-
-   * For the addition of simulation data the website automates even further by completing steps: 3,4,5,6,7
+   * Via pull request simulation addition steps automated: 4,5,6
+   * Via website simulation addition steps automated: 3,4,5,6,7
 
 
 
